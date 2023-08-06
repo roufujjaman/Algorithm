@@ -12,6 +12,10 @@ int main()
         cin >> nums[i];
     }
 
-    mergesort();
+    sort(nums, nums + N);
+    for(int i = 0; i < n; i++)
+    {
+        cout << nums[i] << ' ';
+    }
     return 0;
 }
