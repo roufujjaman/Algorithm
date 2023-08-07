@@ -4,26 +4,26 @@ void merge(int arr[], int left, int right, int mid)
 {
     int left_size = mid - left + 1;
     int arr_left[left_size + 1];
-    arr_left[left_size] = INT_MAX;
+    arr_left[left_size] = INT_MIN;
 
-    int right_size = right - mid;
+    int right_size = left - mid;
     int arr_right[right_size + 1];
     arr_right[right_size] = INT_MAX;
 
     for (int i = 0, j = left; j <= mid; i++)
     {
-        arr_left[i] = arr[j++]; 
+        arr_left[i] = arr[j++]; // <<< increment of j;
     }
     for (int i = 0, j = mid + 1; j <= right; i++)
     {
-        arr_right[i] = arr[j++];
+        arr_right[i] = arr[j++]; // <<< increment of j;
     }
 
     int ptr1 = 0, ptr2 = 0;
     for (int i = left; i <= right; i++)
     {
-        if(arr_left[ptr1] < arr_right[ptr2]) arr[i] = arr_left[ptr1++];
-        else arr[i] = arr_right[ptr2++];
+        if(arr_left[ptr1] < arr_right[ptr2]) arr[left] = arr_left[ptr1++];
+        else arr[left] = arr_right[ptr2++];
     }
 }
 void mergesort(int arr[], int left, int right)
@@ -43,12 +43,11 @@ int main()
     {
         cin >> arr[i];
     }
-    mergesort(arr, 0, n);
     for(int i = 0; i < n; i++)
     {
         cout << arr[i] << ' ';
     }
     cout << '\n';
+    mergesort(arr, 0, n - 1);
     return 0;
 }
-
