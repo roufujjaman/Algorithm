@@ -1,50 +1,56 @@
 #include<bits/stdc++.h>
 using namespace std;
-void merge(int arr[], int left, int right, int mid)
+void merge(vector<int>& arr, int left, int mid, int right)
 {
     int left_size = mid - left + 1;
-    int arr_left[left_size + 1];
-    arr_left[left_size] = INT_MAX;
+    int left_arr[left_size + 1];
+    for (int i = 0; i < left_size; i++)
+    {
+        left_arr[i] = arr[left + i];
+    }
+    left_arr[left_size] = INT_MAX;
 
     int right_size = right - mid;
-    int arr_right[right_size + 1];
-    arr_right[right_size] = INT_MAX;
-
-    for (int i = 0, j = left; j <= mid; i++)
+    int right_arr[right_size + 1];
+    for (int i = 0; i < right_size; i++)
     {
-        arr_left[i] = arr[j++]; 
+        right_arr[i] = arr[mid + 1 + i];
     }
-    for (int i = 0, j = mid + 1; j <= right; i++)
-    {
-        arr_right[i] = arr[j++];
-    }
+    right_arr[right_size] = INT_MAX;
 
     int ptr1 = 0, ptr2 = 0;
     for (int i = left; i <= right; i++)
     {
-        if(arr_left[ptr1] < arr_right[ptr2]) arr[i] = arr_left[ptr1++];
-        else arr[i] = arr_right[ptr2++];
+        if(left_arr[ptr1] < right_arr[ptr2])
+        {
+            arr[i] = left_arr[ptr1];
+            ptr1++;
+        }
+        else
+        {
+            arr[i] = right_arr[ptr2];
+            ptr2++;
+        }
     }
 }
-void mergesort(int arr[], int left, int right)
+void mergesort(vector<int> & arr, int left, int right)
 {
     if (left == right) return;
     int mid = (left + right) / 2;
     mergesort(arr, left, mid);
     mergesort(arr, mid + 1, right);
-    merge(arr, left, right, mid);
+    merge(arr, left, mid, right);
 }
 int main()
 {
     int n;
     cin >> n;
-    int arr[n];
+    vector<int> arr(n);
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
     }
-    mergesort(arr, 0, n);
-    // mergesort(arr, 0, n - 1) for descending order
+    mergesort(arr, 0, n - 1);
     for (int i = 0; i < n; i++)
     {
         cout << arr[i] << ' ';
