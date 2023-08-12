@@ -1,22 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
+const int N = 1e3+5;
+vector<int> adj[N];
 int main()
 {
     int n, m;
     cin >> n >> m;
-    int adjmat[n][n] = {0};
-    for (int i = 0; i < m; i++)
-    {
-        int u, v;
-        cin >> u >> v;
-        adjmat[u][v] = 1;
-    }
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n; j++)
-        {
-            cout << adjmat[i][j] << ' ';
-        }
+        
+    }  
+    for (int i = 0; i < 4; i++)
+    {
+        cout << arr[i][3-i];
         cout << '\n';
     }
     return 0;

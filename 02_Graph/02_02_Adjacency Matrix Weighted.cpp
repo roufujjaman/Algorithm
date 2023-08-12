@@ -1,15 +1,17 @@
 #include<bits/stdc++.h>
 using namespace std;
+const int N = 1e3+5;
+int adjmat[N][N];
 int main()
 {
-    int n, m;
+    int n, m, w;
     cin >> n >> m;
-    int adjmat[n][n] = {0};
     for (int i = 0; i < m; i++)
     {
-        int u, v;
-        cin >> u >> v;
-        adjmat[u][v] = 1;
+        int u, v, w;
+        cin >> u >> v >> w;
+        adjmat[u][v] = w;
+        adjmat[v][u] = w;
     }
     for (int i = 0; i < n; i++)
     {
