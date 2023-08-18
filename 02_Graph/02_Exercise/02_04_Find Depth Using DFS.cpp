@@ -1,20 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N = 100;
+const int N = 200;
 vector<int> adj[N];
 bool visited[N];
 int depth[N];
-int height[N];
 void dfs(int u)
 {
     visited[u] = true;
-    printf("visiting - %d\n", u);
     for (int v: adj[u])
     {
         if (visited[v] == true) continue;
         depth[v] = depth[u] + 1;
         dfs(v);
-    }
+    }   
 }
 int main()
 {
@@ -25,12 +23,36 @@ int main()
     {
         cin >> u >> v;
         adj[u].push_back(v);
-        adj[v].push_back(u);   
+        adj[v].push_back(u);
     }
-    dfs(0);
-    for (int i = 0; i < n; i++)
-    {
-        printf("depth N[%d] - %d\n", i, depth[i]);
-    }
+    dfs(1);
+    int query;
+    cin >> query;
+    cout << "Depth of " << query << " = " << depth[query];
     return 0;
 }
+
+// Sample Input
+// Sample Output
+// 7 
+// 6
+// 1 2
+// 2 4
+// 2 5
+// 1 3
+// 3 6
+// 1 7
+// 7
+// Depth of 7 = 1
+// 7 
+// 6
+// 1 2
+// 2 4
+// 2 5
+// 1 3
+// 3 6
+// 1 7
+// 4
+// Depth of 4 = 2
+
+
