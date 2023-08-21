@@ -9,6 +9,7 @@ void bfs(int s)
     // s t e p - 1
     queue<int> q;
     q.push(s);
+    visited[s] = true;
 
     while (!q.empty())
     {
@@ -16,15 +17,17 @@ void bfs(int s)
         int u = q.front();
         q.pop(); 
 
-        visited[u] = true;
+        // s t e p - 3
         cout << "visiting - " << u << "\n";
         
-        // s t e p - 3
+        // s t e p - 4
         for(int v: adj[u])
         {
             if (visited[v] == true) continue;
-            level[v] = level[u] + 1;
+            visited[v] = true;
             q.push(v);
+            
+            level[v] = level[u] + 1; // optional step to count level;
         }
     }
 }
