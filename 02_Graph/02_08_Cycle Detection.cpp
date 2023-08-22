@@ -1,19 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N = 20;
+const int N = 200;
 vector<int> adj[N];
 bool visited[N];
-int level[N];
-void dfs(int u)
+bool dfs(int u, int parent)
 {
     visited[u] = true;
-    // level[u] = 1;
+    bool is_cycle = false;
     for (int v: adj[u])
     {
-        if (visited[v] == true) continue;
-        level[v] = level[u] + 1;
-        dfs(v);
+        if (v == parent) continue;
+        if (visited[v] == true)
+        {
+            return true;
+        }
+        is_cycle |=  dfs(v, u);
     }
+    return is_cycle;
 }
 int main()
 {
@@ -26,8 +29,6 @@ int main()
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    int query;
-    cin >> query;
-    cout << "Level of " << query << " = " << level[query];
+    dfs(0, -1)? cout << "CYCLE" : cout << "NO CYCLE";
     return 0;
 }
