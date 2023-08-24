@@ -1,8 +1,9 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+
 using namespace std;
-vector<int> adj[100];
-bool visited[100];
-int cnt = 0;
+const int N = 1e5 + 5;
+vector<int> adj[N];
+bool visited[N];
 int dfs(int u)
 {
     visited[u] = true;
@@ -16,6 +17,7 @@ int dfs(int u)
 }
 int main()
 {
+    // Write your code here
     int n, m;
     cin >> n >> m;
     for (int i = 0; i < m; i++)
@@ -25,10 +27,17 @@ int main()
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    for (int i = 0; i < 10; i++)
+    vector<int> nodes;
+    for (int i = 0; i < N; i++)
     {
         if (visited[i] == true) continue;
-        cout << dfs(i) << " ";
+        int count = dfs(i);
+        if (count > 1) nodes.push_back(count);
+    }
+    sort(nodes.begin(), nodes.end());
+    for (int i: nodes)
+    {
+        cout << i << " ";
     }
     return 0;
 }

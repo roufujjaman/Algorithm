@@ -1,21 +1,24 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+
 using namespace std;
-vector<int> adj[100];
-bool visited[100];
-int cnt = 0;
-int dfs(int u)
+const int N = 1e5 + 5;
+vector<int> adj[N];
+bool visited[N];
+int can_go = 0;
+void dfs(int u)
 {
     visited[u] = true;
-    int size = 1;
+    
     for (int v: adj[u])
     {
         if (visited[v] == true) continue;
-        size += dfs(v);
+        can_go++;
+        dfs(v);
     }
-    return size;
 }
 int main()
 {
+    // Write your code here
     int n, m;
     cin >> n >> m;
     for (int i = 0; i < m; i++)
@@ -23,12 +26,10 @@ int main()
         int u, v;
         cin >> u >> v;
         adj[u].push_back(v);
-        adj[v].push_back(u);
     }
-    for (int i = 0; i < 10; i++)
-    {
-        if (visited[i] == true) continue;
-        cout << dfs(i) << " ";
-    }
+    int query;
+    cin >> query;
+    dfs(query);
+    cout << can_go << "\n";
     return 0;
 }
