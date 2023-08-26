@@ -1,34 +1,44 @@
 #include<bits/stdc++.h>
 using namespace std;
-vector<int> adj[100];
-bool visited[100];
-int cnt = 0;
-int dfs(int u)
+const int N = 15;
+vector<int> adj[N];
+bool visited[N];
+void bfs(int u)
 {
+    if(adj[u].empty()) return;
     visited[u] = true;
-    int size = 1;
+    cout << u << " | ";
     for (int v: adj[u])
     {
         if (visited[v] == true) continue;
-        size += dfs(v);
+        bfs(v);
     }
-    return size;
 }
 int main()
 {
     int n, m;
     cin >> n >> m;
+    int u, v;
     for (int i = 0; i < m; i++)
     {
-        int u, v;
         cin >> u >> v;
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < N; i++)
     {
-        if (visited[i] == true) continue;
-        cout << dfs(i) << " ";
+        cout << i << " | ";
+        for (int j: adj[i])
+        {
+            cout << j << "  ";
+        }
+        cout << "\n";
+    }
+    for (int i = 0; i < N; i++)
+    {
+        if(visited[i] == true) continue;
+        bfs(i);
+        cout << "\n";
     }
     return 0;
 }
