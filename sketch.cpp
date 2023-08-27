@@ -3,15 +3,29 @@ using namespace std;
 const int N = 15;
 vector<int> adj[N];
 bool visited[N];
-void bfs(int u)
+int level[N];
+int parent[N];
+void bfs(int s)
 {
-    if(adj[u].empty()) return;
-    visited[u] = true;
-    cout << u << " | ";
-    for (int v: adj[u])
+    queue<int> q;
+    q.push(s);
+    visited[s] = true;
+    level[s] = 0;
+    parent[s] = -1;
+    while (!q.empty())
     {
-        if (visited[v] == true) continue;
-        bfs(v);
+        int u = q.front();
+        q.pop();
+
+        for(int v: adj[u])
+        {
+            if (visited[v] == true) continue;
+            visited[v] = true;
+            q.push(v);
+            
+            level[v] = level[u] + 1; // to find the distance     <<<<<<
+            parent[v] = u;  // to find the path     <<<<<<
+        }        
     }
 }
 int main()
@@ -25,20 +39,25 @@ int main()
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    for (int i = 0; i < N; i++)
+    int source, destination;
+    cin >> source >> destination;
+    bfs(source);
+
+    vector<int> path;
+    int current = destination;
+    while (current != -1)
     {
-        cout << i << " | ";
-        for (int j: adj[i])
-        {
-            cout << j << "  ";
-        }
-        cout << "\n";
+        path.push_back(current);
+        current = parent[current];
     }
-    for (int i = 0; i < N; i++)
+
+    reverse(path.begin(), path.end());
+
+    cout << "Distance : " << level[destination] << "\n";
+    cout << "Path : ";
+    for (int p: path)
     {
-        if(visited[i] == true) continue;
-        bfs(i);
-        cout << "\n";
+        cout << p << " ";
     }
     return 0;
 }
