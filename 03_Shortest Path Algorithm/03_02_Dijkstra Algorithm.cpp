@@ -13,7 +13,7 @@ vector<int> dist(N, INF);
 vector<bool> visited(N);
 void dijkstra(int source)
 {
-    priority_queue<pair<int, int>, vector<pair<int, int>, greater<int>>> pq;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
     dist[source] = 0;
     pq.push({dist[source], source});
 
@@ -27,11 +27,15 @@ void dijkstra(int source)
             int v = vpair.first;
             int w = vpair.second;
 
-            if ()
+            if (visited[v] == true) continue;
+
+            if (dist[v] > dist[u] + w)
+            {
+                dist[v] = dist[u] + w;
+                pq.push({dist[v], v});
+            }
         }
     }
-    
-
 }
 int main()
 {
@@ -47,5 +51,10 @@ int main()
     int source;
     cin >> source;
     dijkstra(source);
+    for (int i = 0; i <= n; i++)
+    {
+        cout << "Distance of N[" << i << "]: ";
+        cout << dist[i] << "\n";
+    }
     return 0;
 }
