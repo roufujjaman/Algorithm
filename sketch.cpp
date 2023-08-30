@@ -15,6 +15,8 @@ int main()
     }
     for (int u = 0; u < N; u++)
     {
+        if (adj[u].empty() == true) continue;
+
         cout << "N[" << u << "] : ";
         for (pair<int, int> vpair: adj[u])
         {
@@ -25,3 +27,17 @@ int main()
     }
     return 0;
 }
+
+// 8
+// 11
+// 3 10 5
+// 3 5 3
+// 3 8 2
+// 3 4 1
+// 5 6 6
+// 5 7 2
+// 10 6 7
+// 6 7 1
+// 7 9 3
+// 9 4 10
+// 8 7 11
