@@ -1,7 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N = 20;
-vector<pair<int, int>> adj[N];
+const int N = 500;
+const int INF = 1e9 + 11;
+vector<int> adj[N];
+vector<bool> visited(N);
+vector<int> dist(N, INF);
+void dijkstra(int source)
+{
+    priority_queue< pair<int, int>, vector< pair<int, int> >, greater< pair<int, int> > > pq;
+    pq.push({0, source});
+
+}
 int main()
 {
     int n, m;
@@ -10,34 +19,11 @@ int main()
     for (int i = 0; i < m; i++)
     {
         cin >> u >> v >> w;
-        adj[u].push_back({v, w});
-        adj[v].push_back({u, w});
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
-    for (int u = 0; u < N; u++)
-    {
-        if (adj[u].empty() == true) continue;
-
-        cout << "N[" << u << "] : ";
-        for (pair<int, int> vpair: adj[u])
-        {
-            cout << "{" << vpair.first << ", ";
-            cout << vpair.second << "} ";
-        }
-        cout << "\n";
-    }
+    int source, destination;
+    cin >> source >> destination; 
+    dijkstra(source);
     return 0;
 }
-
-// 8
-// 11
-// 3 10 5
-// 3 5 3
-// 3 8 2
-// 3 4 1
-// 5 6 6
-// 5 7 2
-// 10 6 7
-// 6 7 1
-// 7 9 3
-// 9 4 10
-// 8 7 11
