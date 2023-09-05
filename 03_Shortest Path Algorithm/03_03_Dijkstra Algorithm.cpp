@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 const int N = 100;
-const int INF = 1e9 + 11;
+const int INF = 1e9;
 vector<pair<int, int>> adj[N];
 vector<bool> visited(N);
 vector<int> dist(N, INF);
