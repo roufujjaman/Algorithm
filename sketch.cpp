@@ -11,11 +11,22 @@ void bellman_ford(int s)
     for (int i = 0; i < n; i++)
     {
         dist[i] = INF;
-
-        dist[s] = 0;
-
-        
     }
+    
+    dist[s] = 0;
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int u = 0; u < n; u++)
+        {
+            for (pair<int, int> vpair: g[u])
+            {
+                int v = vpair.first;
+                int w = vpair.second;
+            }
+        }
+    }
+    
 }
 
 int main()
