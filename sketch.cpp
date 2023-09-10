@@ -3,31 +3,38 @@ using namespace std;
 const int N = 1e3;
 const int INF = 1e9;
 int n, m;
-vector<pair<int, int>> g[N];
-int dist[N];
-
-void bellman_ford(int s)
+int dist[N][N];
+void init_dist()
 {
     for (int i = 0; i <= n; i++)
     {
-        dist[i] = INF;
-    }
-    
-    dist[s] = 0;
-
-    for (int i = 0; i < n - 1; i++) // node - 1;
-    {
-        for (int u = 0; u <= n; u++) // all nodes
+        for (int j = 0; j <= n; j++)
         {
-            for (pair<int, int> vpair: g[u])
+            if (i != j) dist[i][j] = INF;
+        }
+    }
+}
+void print_matrix()
+{
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (dist[i][j] == INF) cout << "X" << " ";
+            else cout << dist[i][j] << " ";
+        }
+        cout << "\n";
+    }
+}
+void floyd_warshall()
+{
+    for (int k = 1; k <= n; k++)
+    {
+        for (int i = 1; i <= n; i++)
+        {
+            for (int j = 1; j <= n; j++)
             {
-                int v = vpair.first;
-                int w = vpair.second;
-
-                if (dist[u] != INF && dist[u] + w < dist[v])
-                {
-                    dist[v] = dist[u] + w;
-                }
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
             }
         }
     }
@@ -35,30 +42,25 @@ void bellman_ford(int s)
 int main()
 {
     cin >> n >> m;
+    init_dist();
     for (int i = 0; i < m; i++)
     {
         int u, v, w;
         cin >> u >> v >> w;
-        g[u].push_back({v, w});
+        dist[u][v] = w;
     }
-    bellman_ford(1);
-    for (int i = 0; i <= n; i++)
-    {
-        cout << "dist of [" << i << "] - " << dist[i] << "\n";
-    }
+    print_matrix();
+    cout << "\n";
+    floyd_warshall();
+    print_matrix();
     return 0;
 }
-
-
+// 4
 // 7
-// 10
-// 1 2 6
-// 1 3 5
-// 1 4 5
-// 2 5 -1
-// 3 2 -2
-// 3 5 1
-// 4 3 -2
-// 4 6 -1
-// 5 7 3
-// 5 7 3
+// 1 2 3
+// 1 4 7
+// 2 1 8
+// 2 3 2
+// 3 4 1
+// 3 1 5
+// 4 1 2
