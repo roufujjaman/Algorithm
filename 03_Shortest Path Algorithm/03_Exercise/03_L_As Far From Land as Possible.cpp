@@ -20,7 +20,7 @@ int main()
     
     while (!sources.empty())
     {
-        
+
     }
 
     
