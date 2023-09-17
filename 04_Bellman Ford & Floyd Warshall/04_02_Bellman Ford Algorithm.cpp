@@ -44,36 +44,20 @@ int main()
                 dist[v] = dist[u] + w;
             }
         }
-    } 
-    
-    bool is_cycle = false; // cycle flag;
-    for (Edge ed: edges)
-    {
-        int u = ed.u;
-        int v = ed.v;
-        int w = ed.w;
-
-        if (dist[u] != INT_MAX && dist[u] + w < dist[v]) // relexation
+        
+        // print - each relaxation
+        cout << "Iteration " << i + 1 << "\n";
+        for (int i = 1; i <= n; i++)
         {
-            is_cycle = true;
-            break;
+            cout << source << " > " << i << ": " << dist[i] << "\n";
         }
-    }
-    
-    for (int i = 1; i <= n; i++) // n th iteration to check negative cycle;
-    {
-        if (!is_cycle) cout << source << " > " << dist[i] << ": " << dist[i] << "\n";
-        else
-        {
-            cout << "Cycle Exist";
-            break;
-        }
-    }
+    }    
     return 0;
 }
 
-// 3 3
-// 1 2 2
-// 3 1 -1
-// 2 3 -3
+// 4 4
+// 2 3 2
+// 1 4 10
+// 3 4 -2
+// 1 2 5
 // 1
