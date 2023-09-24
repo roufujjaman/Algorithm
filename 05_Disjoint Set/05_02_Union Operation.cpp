@@ -18,11 +18,11 @@ int dsu_find(int node)
 }
 void dsu_union(int a, int b)
 {
-    a = dsu_find(a);
-    b = dsu_find(b);
-    if (a != b)
+    int leaderA = dsu_find(a);
+    int leaderB = dsu_find(b);
+    if (leaderA != leaderB)
     {
-        parent[b] = a;
+        parent[leaderA] = leaderB;
     }
 }
 int main()
