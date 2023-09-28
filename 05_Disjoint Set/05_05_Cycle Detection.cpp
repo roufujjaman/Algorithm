@@ -20,12 +20,12 @@ void dsu_union(int parent[], int parent_rank[], int a, int b)
 {
     int leader_a = dsu_find(parent, a);
     int leader_b = dsu_find(parent, b);
-    
+
     if (leader_a == leader_b)
     {
         cout << "Cycle Detected\n";
     }
-    
+
     if (leader_a != leader_b)
     {
         if (parent_rank[leader_a] > parent_rank[leader_b])
@@ -68,3 +68,17 @@ int main()
     cout << "\n" << dsu_find(parent, 3);
     return 0;
 }
+
+// 15 12
+// 0 1
+// 0 2
+// 2 3
+// 4 5
+// 6 7
+// 4 7
+// 10 11
+// 12 13
+// 10 12
+// 12 6
+// 4 3
+// 10 4
