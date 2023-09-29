@@ -1,45 +1,31 @@
 #include<bits/stdc++.h>
 using namespace std;
-void dsu_set(int parent[], int parent_level[], int n)
+const int N = 1e5 + 5;
+vector<int> parent(N, -1);
+vector<int> parent_size(N, 1);
+int dsu_find(int node)
 {
-    for (int i = 0; i < n; i++)
+    while (parent[node] != -1)
     {
-        parent[i] = -1;
-        parent_level[i] = 1;
+        node = parent[node];
     }
+    return node;
 }
-int dsu_find(int parent[], int query_node)
+void dsu_union(int a, int b)
 {
-    while (parent[query_node] != -1)
-    {
-        query_node = parent[query_node];
-    }
-    return query_node;
-}
-void dsu_union(int parent[], int parent_rank[], int a, int b)
-{
-    int leader_a = dsu_find(parent, a);
-    int leader_b = dsu_find(parent, b);
-    
-    if (leader_a == leader_b)
-    {
-        cout << "Cycle Detected\n";
-    }
-    
+    int leader_a = dsu_find(a);
+    int leader_b = dsu_find(b);
     if (leader_a != leader_b)
     {
-        if (parent_rank[leader_a] > parent_rank[leader_b])
+        if (parent_size[leader_a] > parent_size[leader_b])
         {
             parent[leader_b] = leader_a;
+            parent_size[leader_a] += parent_size[leader_b];
         }
-        else if (parent_rank[leader_b] > parent_rank[leader_a])
+        else
         {
             parent[leader_a] = leader_b;
-        }
-        else // levels are equal
-        {
-            parent[leader_b] = leader_a;
-            parent_rank[leader_a]++;
+            parent_size[leader_b] += parent_size[leader_a]; 
         }
     }
 }
@@ -47,24 +33,37 @@ int main()
 {
     int n, m;
     cin >> n >> m;
-    int parent[n];
-    int parent_level[n];
-    dsu_set(parent, parent_level, n);
     for (int i = 0; i < m; i++)
     {
         int a, b;
         cin >> a >> b;
-        dsu_union(parent, parent_level, a, b);
+        dsu_union(a, b);
     }
-    for (int i = 0; i < n; i++)
+    vector<int> head;
+    for (int i = 1; i <= n; i++)
     {
-        cout << parent[i] << "  ";
+        if (parent[i] == -1)
+        {
+            head.push_back(i);
+        }
     }
-    cout << "\n";
-    for (int i = 0; i < n; i++)
+    cout << head.size() - 1 << "\n";
+    for (int i = 1; i < head.size(); i++)
     {
-        cout << parent_level[i] << "  ";
+        cout << head[i - 1] << " " << head[i] << "\n";
     }
-    cout << "\n" << dsu_find(parent, 3);
     return 0;
 }
+
+
+// 10 10
+// 2 5
+// 5 6
+// 1 4
+// 6 8
+// 2 6
+// 3 6
+// 1 10
+// 8 9
+// 2 3
+// 5 8
