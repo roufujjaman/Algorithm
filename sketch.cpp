@@ -1,19 +1,26 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+
 using namespace std;
+const int INF = 1e9 + 2;
+int dist[101][101];
 int main()
 {
-    int n;
-    string number;
-    cin >> n >> number;
-    for (int i = 0; i < n; i++)
+    // Write your code here
+    int n, m;
+    cin >> n >> m;
+    for (int i = 0; i < m; i++)
     {
-        if (n % 2 != 0 && i == n - 1)
-        {
-            cout << number[i];
-            continue;
-        }
-        if (i != 0 && i % 2 == 0) cout << "-";
-        cout << number[i];
+        int u, v, w;
+        cin >> u >> v >> w;
+        dist[u][v] = w;
+    }
+    int q;
+    cin >> q;
+    for (int i = 0; i < q; i++)
+    {
+        int y, z, n;
+        cin >> y >> z;
+        cout << dist[y][z] << "\n";
     }
     return 0;
 }
