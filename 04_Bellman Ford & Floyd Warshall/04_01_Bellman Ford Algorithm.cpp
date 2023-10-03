@@ -17,7 +17,7 @@ void bellman_ford(int s)
 
     for (int i = 0; i < n - 1; i++) // node - 1;
     {
-        for (int u = 0; u <= n; u++) // all nodes
+        for (int u = 0; u <= n; u++) // going  to all nodes to access all the edges using adjucency list
         {
             for (pair<int, int> vpair: g[u])
             {
