@@ -1,32 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
 const int N = 1e5;
-int fib_arr[N];
+int memo[N];
 void init_arr()
 {
     for (int i = 0; i <= N; i++)
     {
-        fib_arr[i] = -1;
+        memo[i] = -1;
     }
 }
-int fibonacci(int n)
+int fibonacci(int position)
 {
+    // check for negative position
+    if (position < 0) return -1;
+
     // base case 1 & 2;
-    if (n == 0) return 0;
-    if (n == 1) return 1;
+    if (position == 0) return 0;
+    if (position == 1) return 1;
+
+    // lookup for value
+    if (memo[position] != -1) return memo[position];
 
     // memoization
-    if (fib_arr[n] != -1)
-    {
-        return fib_arr[n];
-    }
-
-    int left = fibonacci(n - 1);
-    int right = fibonacci(n - 2);
-
-    // memoization
-    fib_arr[n] = left + right;
-    return left + right;
+    memo[position] = fibonacci(position - 1) + fibonacci(position - 2);
+    return memo[position];
 }
 int main()
 {
