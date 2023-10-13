@@ -11,6 +11,7 @@ int knapsack(int position, int size, int val[], int weight[])
         int withCurrent = knapsack(position - 1, size - weight[position], val, weight) + val[position];
         // option - 2 : exclude current item
         int withoutCurrent = knapsack(position - 1, size, val, weight);
+        return max(withCurrent, withoutCurrent);
     }
     else
     {
@@ -33,6 +34,6 @@ int main()
     }
     int size;
     cin >> size;
-    knapsack(count, size, val, weight);
+    cout << knapsack(count, size, val, weight);
     return 0;
 }
