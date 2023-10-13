@@ -1,39 +1,42 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N = 1e5 + 4;
+const int N = 1e5 + 3;
 int memo[N];
-void init_memo(int n)
+void init_memeo()
 {
-    for (int i = 0; i <= n; i++)
+    for (int i = 1; i <= N; i++)
     {
         memo[i] = -1;
     }
 }
-int jump(int arr[], int n)
+int jump(int arr[], int position)
 {
-    if (n == 1) return 0;
-    else if (memo[n] != -1) return memo[n];
-    else if (n == 2)
-    {   
-        return memo[n] = abs(arr[n] - arr[n - 1]); 
-    }
-    else
+    // base case - 1
+    if (position == 1) return 0;
+    // base case - 2
+    if (position == 2)
     {
-        int left = abs(arr[n] - arr[n - 1]) + jump(arr, n - 1);
-        int right = abs(arr[n] - arr[n - 2]) + jump(arr, n - 2);
-        return memo[n] = min(left, right);
+        return abs(arr[position] - arr[position - 1]);
     }
+
+    // check if memoized for current position 
+    if (memo[position] != -1) return memo[position];
+
+    // choices
+    int left = abs(arr[position] - arr[position - 1]) + jump(arr, position - 1);
+    int right = abs(arr[position] - arr[position - 2]) + jump(arr, position - 2);
+    return memo[position] = min(left, right);
 }
 int main()
 {
-    int n;
-    cin >> n;
-    int arr[n + 1];
-    init_memo(n);
-    for (int i = 1; i <= n; i++)
+    int count;
+    cin >> count;
+    int blocks[count + 1];
+    for (int i = 1; i <= count; i++)
     {
-        cin >> arr[i];
+        cin >> blocks[i];
     }
-    cout << jump(arr, n);
+    init_memeo();
+    cout << jump(blocks, count);
     return 0;
 }

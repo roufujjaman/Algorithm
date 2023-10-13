@@ -16,7 +16,7 @@ int knapsack(int position, int size, int val[], int weight[])
     {
         // current item is overweighed hence excluded
         return knapsack(position - 1, size, val, weight);
-    }
+    } 
 }
 int main()
 {

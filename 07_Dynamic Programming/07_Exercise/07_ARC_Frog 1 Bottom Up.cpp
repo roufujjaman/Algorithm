@@ -2,21 +2,28 @@
 using namespace std;
 int main()
 {
-    int n;
-    cin >> n;
-    int arr[n + 1], memo[n + 1];
-    for (int i = 1; i <= n; i++)
+    int count;
+    cin >> count;
+    int blocks[count + 1], memo[count + 1];
+    for (int i = 1; i <= count; i++)
     {
-        cin >> arr[i];
+        cin >> blocks[i];
     }
+
+    // base case - 1
     memo[1] = 0;
-    memo[2] = abs(arr[2] - arr[1]);
-    for (int i = 3; i <= n; i++)
+    // base case - 2
+    memo[2] = abs(blocks[1] - blocks[2]);
+
+    // choices
+    for (int i = 3; i <= count; i++)
     {
-        int left = abs(arr[i] - arr[i - 1]) + memo[i - 1];
-        int right = abs(arr[i] - arr[i - 2]) + memo[i - 2];
+        int left = memo[i - 1] + abs(blocks[i] - blocks[i - 1]);
+        int right = memo[i - 2] + abs(blocks[i] - blocks[i - 2]);
+
         memo[i] = min(left, right);
     }
-    cout << memo[n];
+
+    cout << memo[count];
     return 0;
 }
