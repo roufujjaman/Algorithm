@@ -1,30 +1,40 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int knapsack(int position, int container_size, int weight[], int val[])
+const int N = 1e3 + 5;
+int memo[N][N];
+void init_memo(int count)
 {
-    // basecase
-    if (position == 0 || container_size == 0) return 0;
-
-    //
-    if (weight[position] <= container_size)
+    for (int i = 0; i <= count; i++)
     {
-        int withCurrent = knapsack(position - 1, container_size - weight[position], weight, val) + val[position];
-        int withoutCurrent = knapsack(position - 1, container_size, weight, val);
-        return max(withCurrent, withoutCurrent);
-    }
-    else
-    {
-        return knapsack(position - 1, container_size, weight, val);
+        for (int j = 0; j <= count; j++)
+        {
+            memo[i][j] = -1;
+        }
     }
 }
-int main()
-{
+int knapsack(int position, int container_size, int weight[], int val[]) {
+    // Base case
+    if (position < 1 || container_size == 0) return 0;
+
+    if (memo[position][container_size] != -1) return memo[position][container_size];
+
+    // If the weight of the current item can be accommodated
+    if (weight[position] <= container_size) {
+        int withCurrent = knapsack(position - 1, container_size - weight[position], weight, val) + val[position];
+        int withoutCurrent = knapsack(position - 1, container_size, weight, val);
+        return memo[position][container_size] = max(withCurrent, withoutCurrent);
+    } else {
+        return memo[position][container_size] = knapsack(position - 1, container_size, weight, val);
+    }
+}
+
+int main() {
     int count, container;
     cin >> count >> container;
+    init_memo(count);
     int weight[count + 1];
     int val[count + 1];
-    for (int i = 1; i <= count; i++)
-    {
+    for (int i = 1; i <= count; i++) {
         cin >> weight[i];
         cin >> val[i];
     }
