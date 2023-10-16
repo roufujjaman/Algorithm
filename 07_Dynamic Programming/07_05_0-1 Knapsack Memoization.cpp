@@ -1,11 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
-int memo[1005][1005];
-void init_memo(int n)
+const int N = 105;
+int memo[N][N];
+void init_memo()
 {
-    for (int i = 0; i <= n; i++)
+    for (int i = 0; i <= N; i++)
     {
-        for (int j = 0; j <= n; j++)
+        for (int j = 0; j <= N; j++)
         {
             memo[i][j] = -1;
         }
@@ -35,23 +36,19 @@ int knapsack(int position, int size, int val[], int weight[])
 }
 int main()
 {
-    int count;
-    cin >> count;
+    int count, container;
+    cin >> count >> container;
     int val[count + 1], weight[count + 1];
     for (int i = 1; i <= count; i++)
     {
+        cin >> weight[i];
         cin >> val[i];
     }
-    for (int i = 1; i <= count; i++)
-    {
-        cin >> weight[i];
-    }
-    int size;
-    cin >> size;
-    
-    init_memo(size);
-    
-    cout << knapsack(count, size, val, weight);
-    
+    init_memo();
+    cout << knapsack(count, container, val, weight);
     return 0;
 }
+// 3 8
+// 3 30
+// 4 50
+// 5 60
