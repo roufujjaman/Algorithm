@@ -6,18 +6,18 @@ int main()
     cin >> count >> container;
     int weight[count + 1];
     int val[count + 1];
-    for (int i = 0; i < count; i++)
+    for (int i = 1; i <= count; i++)
     {
         cin >> weight[i];
         cin >> val[i];
     }
-    int knapsack[count + 1][container + 1];
+    int dp[count + 1][container + 1];
     for (int i = 0; i <= count; i++)
     {
         for (int  j = 0; j <= container; j++)
         {
-            // basecase
-            if (i == 0 || j == 0) knapsack[i][j] = 0;
+            // basecase kinda
+            if (i == 0 || j == 0) dp[i][j] = 0;
         }
     }
     for (int i = 1; i <= count; i++)
@@ -26,9 +26,26 @@ int main()
         {
             if (weight[i] <= j)
             {
-                int withCurrent = knapsack[i - 1][]
+                int withCurrent = val[i] + dp[i - 1][j - weight[i]];
+                int withoutCurrent = dp[i - 1][j];
+                dp[i][j] = max(withCurrent, withoutCurrent);
+            }
+            else
+            {
+                dp[i][j] = dp[i - 1][j];
             }
         }
     }
+    cout << dp[count][container];
     return 0;
 }
+
+// https://codeforces.com/group/MWSDmqGsZm/contest/223339/problem/U
+
+// 6 15
+// 6 5
+// 5 6
+// 6 4
+// 6 6
+// 3 5
+// 7 2
