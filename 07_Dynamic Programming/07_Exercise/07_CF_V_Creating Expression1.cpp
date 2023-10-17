@@ -1,23 +1,26 @@
 #include<bits/stdc++.h>
 using namespace std;
-bool knapsack(int position, long long int sum, int res, int items[])
+long long int count_val, res;
+long long int arr[21];
+bool fn(long long int i, long long int sum)
 {
-    if (position == 0 && sum == res) return true;
-    if (position == 0 && sum != res) return false;
-    bool add_curr = knapsack(position - 1, sum + (long long int)items[position], res, items);
-    bool subtract_curr = knapsack(position - 1, sum - (long long int)items[position], res, items);
-    return add_curr || subtract_curr;
+    if (i == count_val) return sum == res;
+    return fn(i + 1, sum + arr[i + 1]) || fn(i + 1, sum - arr[i + 1]);
 }
 int main()
 {
-    int count, res;
-    cin >> count >> res;
-    int arr[count + 1];
-    for (int i = 1; i <= count; i++)
+    cin >> count_val >> res;
+    for (int i = 0; i < count_val; i++)
     {
         cin >> arr[i];
     }
-    if (knapsack(count, 0, res, arr)) cout << "YES";
-    else cout << "NO";
+    if (fn(0, arr[0])) cout << "YES";
+    else cout << "NO";   
     return 0;
 }
+
+
+// 5 5
+// 1 2 3 4 5
+
+// "YES"
