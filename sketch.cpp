@@ -5,7 +5,7 @@ int n, m;
 int fn(int si, int sj)
 {
     if (si == n && sj == m) return arr[si][sj];
-    if (si > n || sj > m) return 0;
+    if (si > n || sj > m) return -1000000;
     int mvi = arr[si][sj] + fn(si + 1, sj);
     int mvj = arr[si][sj] + fn(si, sj + 1);
     return max(mvi, mvj);
