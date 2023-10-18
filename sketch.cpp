@@ -1,22 +1,25 @@
 #include<bits/stdc++.h>
 using namespace std;
-long long int count_val, res;
-long long int arr[21];
-bool fn(long long int i, long long int sum)
+int arr[11][11];
+int n, m;
+int fn(int si, int sj)
 {
-    if (i == count_val) return sum == res;
-    return fn(i + 1, sum + arr[i + 1]) || fn(i + 1, sum - arr[i + 1]);
+    if (si == n && sj == m) return arr[si][sj];
+    if (si > n || sj > m) return 0;
+    int mvi = arr[si][sj] + fn(si + 1, sj);
+    int mvj = arr[si][sj] + fn(si, sj + 1);
+    return max(mvi, mvj);
 }
 int main()
 {
-    cin >> count_val >> res;
-    for (int i = 0; i < count_val; i++)
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++)
     {
-        cin >> arr[i];
+        for (int j = 1; j <= m; j++)
+        {
+            cin >> arr[i][j];
+        }
     }
-    if (fn(0, arr[0])) cout << "YES";
-    else cout << "NO";   
+    cout << fn(1, 1) << "\n";
     return 0;
 }
-
-//https://codeforces.com/group/MWSDmqGsZm/contest/223339/problem/V
