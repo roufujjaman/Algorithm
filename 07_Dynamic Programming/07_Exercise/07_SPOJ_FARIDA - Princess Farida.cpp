@@ -1,15 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
-void init_memo(int n, long long int arr[])
+long long int fn(int i, long long int arr[], long long int memo[])
 {
-    for (int i = 0; i <= n; i++)
-    {
-        arr[i] = -1;
-    }
-}
-int fn(int i, long long int arr[], long long int memo[])
-{
-    if (i < 0) return 0;
+	if (i < 0) return 0;
+    if (i == 0) return arr[0];
+    if (i == 1) return max(arr[0], arr[1]);
     if (memo[i] != -1) return memo[i];
     long long int withCurrent = fn(i - 2, arr, memo) + arr[i];
     long long int withoutCurrent = fn(i - 1, arr, memo);
@@ -20,16 +15,16 @@ int main()
     int count;
     cin >> count;
     long long int arr[10002];
-    long long int memo[10002];
     for (int i = 0; i < count; i++)
     {
         int size;
         cin >> size;
+        long long int memo[size + 2];
         for (int j = 0; j < size; j++)
         {
+            memo[j] = -1;
             cin >> arr[j];
         }
-        init_memo(size, memo);
         cout << "Case " << i + 1 << ": " << fn(size - 1, arr, memo) << "\n";
     }
     return 0;
