@@ -12,11 +12,14 @@ int main()
     int s;
     cin >> s;
     bool memo[n + 1][s + 1];
+    // basecase 0,0
     memo[0][0] = true;
+    // basecase row 0
     for (int i = 1; i <= s; i++)
     {
         memo[0][i] = false;
     }
+    // starts from 1,0
     for (int i = 1; i <= n; i++)
     {
         for (int j = 0; j <= s; j++)

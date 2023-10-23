@@ -9,23 +9,26 @@ int main()
     {
         cin >> arr[i];
     }
-    int s;
-    cin >> s;
-    bool memo[n + 1][s + 1];
-    memo[0][0] = true;
-    for (int i = 1; i <= s; i++)
+    int target;
+    cin >> target;
+
+    int memo[n + 1][target + 1];
+    // basecase
+    memo[0][0] = 1;
+    for (int i = 1; i <= target; i++)
     {
-        memo[0][i] = false;
+        memo[0][i] = 0;
     }
     for (int i = 1; i <= n; i++)
     {
-        for (int j = 0; j <= s; j++)
+        for (int j = 0; j <= target; j++)
         {
+            // arr[] contains set elements starts from 0
             if (arr[i - 1] <= j)
             {
-                bool with = memo[i - 1][j - arr[i - 1]];
-                bool without = memo[i - 1][j];
-                memo[i][j] = with || without;
+                int with = memo[i - 1][j - arr[i - 1]];
+                int without = memo[i - 1][j];
+                memo[i][j] = with + without;
             }
             else
             {
@@ -35,22 +38,24 @@ int main()
     }
     for (int i = 0; i <= n; i++)
     {
-        for (int j = 0; j <= s; j++)
+        for (int j = 0; j <= target; j++)
         {
-            cout << memo[i][j] << " ";
+            cout << memo[i][j] << "  ";
         }
         cout << "\n";
-    }
-    memo[n][s]? cout << "YES" : cout << "NO";
+    }    
+    cout << "\nt[" << target << "] = " << memo[n][target]; 
     return 0;
 }
 
 
+// 4
+// 1 3 4 5
+// 5
+
 
 // 4
-// 1 2 4 6
-// 7
+// 0 0 0 1
+// 1
 
-// 4
-// 1 3 4 6
-// 7
+// 8
