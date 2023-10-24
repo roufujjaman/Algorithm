@@ -1,5 +1,20 @@
 #include<bits/stdc++.h>
 using namespace std;
+int fn(int n, int target, int arr[])
+{
+    if (n == 0)
+    {
+        if (target == 0) return 1;
+        else return 0;
+    }
+    if (arr[n - 1] <= target)
+    {
+        int with = fn(n - 1, target - arr[n - 1], arr);
+        int without = fn(n - 1, target, arr);
+        return with + without;
+    }
+    return fn(n- 1, target, arr);
+}
 int main()
 {
     int n;
@@ -11,51 +26,6 @@ int main()
     }
     int target;
     cin >> target;
-
-    int memo[n + 1][target + 1];
-    // basecase
-    memo[0][0] = 1;
-    for (int i = 1; i <= target; i++)
-    {
-        memo[0][i] = 0;
-    }
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 0; j <= target; j++)
-        {
-            // arr[] contains set elements starts from 0
-            if (arr[i - 1] <= j)
-            {
-                int with = memo[i - 1][j - arr[i - 1]];
-                int without = memo[i - 1][j];
-                memo[i][j] = with + without;
-            }
-            else
-            {
-                memo[i][j] = memo[i - 1][j];
-            }
-        }
-    }
-    for (int i = 0; i <= n; i++)
-    {
-        for (int j = 0; j <= target; j++)
-        {
-            cout << memo[i][j] << "  ";
-        }
-        cout << "\n";
-    }    
-    cout << "\nt[" << target << "] = " << memo[n][target]; 
+    cout << fn(n, target, arr);
     return 0;
 }
-
-
-// 4
-// 1 3 4 5
-// 5
-
-
-// 4
-// 0 0 0 1
-// 1
-
-// 8
