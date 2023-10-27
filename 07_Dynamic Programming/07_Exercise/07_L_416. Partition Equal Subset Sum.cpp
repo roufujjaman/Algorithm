@@ -22,7 +22,9 @@ public:
                 {
                     if (nums[i - 1] <= j)
                     {
-                        memo[i][j] = memo[i - 1][j - nums[i - 1]] || memo[i - 1][j];
+                        int with = memo[i - 1][j - nums[i - 1]];
+                        int without = memo[i - 1][j];
+                        memo[i][j] = with || without;
                     }
                     else
                     {
@@ -30,13 +32,8 @@ public:
                     }
                 }
             }
-            if (memo[n][target]) cout << "true";
-            else cout << "false";
+            if (memo[n][target]) return true;
         }
-        else
-        {
-            cout << "false";
-        }
-        return true;
+        return false;
     }
 };
