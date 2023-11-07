@@ -18,42 +18,43 @@ int main()
         {
             if (a[i - 1] == b[j - 1])
             {
-                mem[i][j] = mem[i - 1][j - 1] + 1;
+                mem[i][j] = 1 + mem[i - 1][j - 1];
             }
             else
             {
-                mem[i][j] = 0;
+                mem[i][j] = max(mem[i - 1][j], mem[i][j - 1]);
             }
         }
     }
-    int max = 0;
-    int mi, mj;
     for (int i = 0; i <= n; i++)
     {
         for (int j = 0; j <= m; j++)
         {
-            if (mem[i][j] > max)
-            {
-                max = mem[i][j];
-                mi = i;
-                mj = j;
-            }
+            cout << mem[i][j] << " ";
         }
+        cout << "\n";
     }
+    int i = n, j = m;
     string str;
-    while (mi != 0 && m != 0)
+    while (i != 0 && j != 0)
     {
-        if (a[mi - 1] == b[mj - 1])
+        if (a[i - 1] == b[j - 1])
         {
-            str.push_back(a[mi -1]);
-            mi--;
-            mj--;
+            str.push_back(a[i - 1]);
+            i--;
+            j--;
         }
         else
         {
-            break;
+            if (mem[i][j - 1] > mem[i - 1][j])
+            {
+                j--;
+            }
+            else
+            {
+                i--;
+            }
         }
-
     }
     reverse(str.begin(), str.end());
     cout << str;
@@ -62,7 +63,6 @@ int main()
 
 // abcdfgr
 // acfdgr
-
 
 // rotomono
 // rofomono
