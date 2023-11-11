@@ -22,11 +22,20 @@ int main()
                 mem[i][j] = max(mem[i - 1][j], mem[i][j - 1]);
             }
         }
+    } 
+    cout << (n + m) - mem[n][m] << "\n";
+    int ci = n, cj = m;
+    string str;
+    while (ci != 0 && cj != 0)
+    {
+        if (s1[ci] == s2[cj])
+        {
+            str.push_back(s1[ci]);
+            ci--;
+            cj--;
+        }
     }
-    cout << (n + m)- mem[n][m];
+    reverse(str.begin(), str.end());
+    cout << str;
     return 0;
 }
-
-// COMMONALL
-// CONALL
-
