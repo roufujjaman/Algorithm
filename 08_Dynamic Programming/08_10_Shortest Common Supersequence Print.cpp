@@ -22,11 +22,46 @@ int main()
                 mem[i][j] = max(mem[i - 1][j], mem[i][j - 1]);
             }
         }
+    } 
+    cout << (n + m) - mem[n][m] << "\n";
+    int ci = n, cj = m;
+    string str;
+    while (ci != 0 && cj != 0)
+    {
+        if (s1[ci - 1] == s2[cj - 1])
+        {
+            str.push_back(s1[ci - 1]);
+            ci--;
+            cj--;
+        }
+        // if going up, include left cell
+        else if (mem[ci - 1][cj] > mem[ci][cj - 1])
+        {
+            str.push_back(s1[ci - 1]);
+            ci--;
+        }
+        // else going left, include top cell
+        else
+        {
+            str.push_back(s2[cj - 1]);
+            cj--;
+        }
     }
-    cout << (n + m)- mem[n][m];
+    while (ci != 0)
+    {
+        str.push_back(s1[ci - 1]);
+        ci--;
+    }
+    while (cj != 0)
+    {
+        str.push_back(s2[cj - 1]);
+        cj--;
+    }
+    
+    reverse(str.begin(), str.end());
+    cout << str;
     return 0;
 }
 
-// COMMONALL
-// CONALL
-
+// TAHAR
+// RAHAT
