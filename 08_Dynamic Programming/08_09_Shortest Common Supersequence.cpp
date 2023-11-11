@@ -23,7 +23,7 @@ int main()
             }
         }
     }
-    cout << (n + m)- mem[n][m];
+    cout << (n + m) - mem[n][m];
     return 0;
 }
 

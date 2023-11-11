@@ -3,33 +3,19 @@ using namespace std;
 int main()
 {
     string s1, s2;
-    cin >> s1 >> s2;
+    cin >> s1;
+    s2 = s1;
+    reverse(s2.begin(), s2.end());
     int n = s1.size();
-    int m = s2.size();
-    
-    // approach 1
-    bool found = false;
-    for (int i = 0, j = 0; i < m; i++)
+    int mem[n + 1][n + 1];
+    for (int i = 0; i <= n; i++)
     {
-        if (s2[i] == s1[j])
-        {
-            j++;
-        }
-        if (j == n - 1)
-        {
-            found = true;
-            break;
-        }
-    }
-    found? cout << "YES\n" : cout << "NO\n";
-
-    // approach 2
-    int mem[n + 1][m + 1];
-    for (int i = 0; i <= n; i++) mem[i][0] = 0;
-    for (int j = 0; j <= m; j++) mem[0][j] = 0;
+        mem[i][0] = 0;
+        mem[0][i] = 0;
+    } 
     for (int i = 1; i <= n; i++)
     {
-        for (int j = 1; j <= m; j++)
+        for (int j = 1; j <= n; j++)
         {
             if (s1[i - 1] == s2[j - 1])
             {
@@ -41,6 +27,31 @@ int main()
             }
         }
     }
-    (mem[n][m] = n)? cout << "YES\n" : cout << "NO\n";
-    return 0;
+    cout << mem[n][n] << "\n";
+    int ci = n, cj = n;
+    string str;
+    while (ci != 0 && cj != 0)
+    {
+        if (s1[ci - 1] == s2[cj - 1])
+        {
+            str.push_back(s1[ci - 1]);
+            ci--;
+            cj--;
+        }
+        else
+        {
+            if (mem[ci - 1][cj] > mem[ci][cj - 1])
+            {
+                ci--;
+            }
+            else
+            {
+                cj--;
+            }
+        }
+    }
+    reverse(str.begin(), str.end());
+    cout << str;
 }
+
+
